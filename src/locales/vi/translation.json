@@ -1,0 +1,14 @@
+{
+    "Welcome to React": "Welcome to react and React-i18next",
+    "Sign in system": "Đăng nhập vào hệ thống",
+    "Sign in": "Đăng nhập",
+    "Email address": "Địa chỉ email",
+    "Password": "Mật khẩu",
+    "Do not have an account?": "Bạn không có tài khoản ?",
+    "validation": {
+        "required": "{{field}} là bắt buộc"
+    },
+    "Sign up": "Đăng ký",
+    "Email": "Email"
+
+}

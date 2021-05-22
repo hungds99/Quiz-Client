@@ -1,0 +1,13 @@
+{
+    "Welcome to React": "Welcome to react and React-i18next",
+    "Sign in system": "System sign in",
+    "Sign in": "Sign in" ,
+    "Email address": "Email address",
+    "Password": "Password",
+    "Do not have an account?": "Don&apos;t have an account ?",
+    "validation": {
+        "required": "{{field}} is a required field"
+    },
+    "Sign up": "Sign up",
+    "Email": "Email"
+}
