@@ -9,12 +9,15 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import jwtDecode from "jwt-decode";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { RoutePath } from "../../configs";
+import { TypeActions } from "../../constants";
+import { getStore } from "../../redux/store";
 import UserServices from "../../services/userServices";
 import { Page } from "../../utils";
 
@@ -55,6 +58,12 @@ const Login = () => {
     let { data } = await UserServices.login(loginParams);
     if (data.code === 200) {
       localStorage.setItem("token", data.result.token);
+      const decodedToken = jwtDecode(data.result.token);
+      // Lấy thông tin user từ token lưu vào store
+      getStore().dispatch({
+        type: TypeActions.SET_CREDENTIALS,
+        payload: decodedToken.user,
+      });
       history.push(RoutePath.home);
     } else {
       setLoginError({

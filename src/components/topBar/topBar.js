@@ -20,7 +20,9 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, Link as RouterLink, useHistory } from "react-router-dom";
 import { ImageLink, RoutePath } from "../../configs";
+import { TypeActions } from "../../constants";
 import UserSelectors from "../../redux/selectors/userSelectors";
+import { getStore } from "../../redux/store";
 import ProfileDialog from "../profileDialog/profileDialog";
 
 const useStyles = makeStyles((theme) => ({
@@ -52,6 +54,10 @@ const TopBar = ({ className, ...rest }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    getStore().dispatch({
+      type: TypeActions.SET_CREDENTIALS,
+      payload: {},
+    });
     history.push(RoutePath.login);
   };
 

@@ -40,7 +40,7 @@ function StartCounter({ startCounter }) {
       <Box className={classes.counterBox}>
         <Box className={classes.counter}>
           <h1 className={classes.counterText}>
-            {startCounter > 9
+            {startCounter > 5
               ? "Start"
               : startCounter === 0
               ? "Go"

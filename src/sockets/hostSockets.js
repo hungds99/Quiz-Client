@@ -20,11 +20,6 @@ export const onResponsePlayerJoinRoom = (payload) => {
   });
 };
 
-// Đếm ngược vào game
-export const emitStartCountDown = (payload) => {
-  getSocket().emit("start-count-down", payload);
-};
-
 // Emit sự kiện host bắt đầu game
 export const emitHostStartGame = (payload) => {
   getSocket().emit("host-start-game", payload);

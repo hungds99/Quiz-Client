@@ -12,6 +12,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { RoutePath } from "../../../configs";
+import AppHelper from "../../../helpers";
 import { HostActions } from "../../../redux/actions";
 import HostSelectors from "../../../redux/selectors/hostSelectors";
 import { emitHostCreateRoom } from "../../../sockets/hostSockets";
@@ -112,10 +113,9 @@ const HostLobby = () => {
                         gridGap={10}
                         key={index}
                       >
-                        <Avatar
-                          alt="Remy Sharp"
-                          src="/static/images/avatars/avatar_2.png"
-                        />
+                        <Avatar src={AppHelper.getImageLink(player.avatar)}>
+                          H
+                        </Avatar>
                         <Typography>{player.username}</Typography>
                       </Box>
                     ))}

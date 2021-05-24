@@ -4,6 +4,7 @@ import {
   Button,
   Grid,
   IconButton,
+  LinearProgress,
   makeStyles,
   Paper,
   Typography,
@@ -16,6 +17,7 @@ import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import { ImageLink } from "../../../configs";
+import AppHelper from "../../../helpers";
 import ScoreServices from "../../../services/scoreServices";
 
 const useStyles = makeStyles(() => ({
@@ -184,7 +186,10 @@ function QuestionContainer({
           <Grid item xs={2}>
             <Paper className={classes.paper}>
               <Box className={classes.userInfo}>
-                <Avatar>H</Avatar>
+                <Avatar
+                  className={classes.avatar}
+                  src={AppHelper.getImageLink(userInfo.avatar)}
+                />
                 <Typography>{userInfo.username}</Typography>
                 <Box className={classes.score}>
                   <MonetizationOnIcon
@@ -244,11 +249,7 @@ function QuestionContainer({
                 <Box className={classes.image}>
                   <img
                     width={350}
-                    src={
-                      question.image
-                        ? `http://localhost:4002/${question.image}`
-                        : ImageLink.defaultImage
-                    }
+                    src={AppHelper.getImageLink(question.image)}
                     alt=""
                   />
                 </Box>
@@ -285,7 +286,11 @@ function QuestionContainer({
             </Paper>
           </Grid>
         </Grid>
-      ) : null}
+      ) : (
+        <Box>
+          <LinearProgress />
+        </Box>
+      )}
     </>
   );
 }

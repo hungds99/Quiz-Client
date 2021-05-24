@@ -45,7 +45,7 @@ function QuizCardInfo({ quiz, onShowQuiz }) {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {quiz.title ? quiz.title : "Bạn chưa đặt tên !"}
+              {quiz.title ? quiz.title : "Title is default !"}
             </Typography>
             <Box mt={2} mb={2}>
               <Grid container spacing={1}>

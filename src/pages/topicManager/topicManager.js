@@ -17,26 +17,36 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import DeleteIcon from "@material-ui/icons/Delete";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import CustomLoadingOverlay from "../../components/common/customLoadingOverlay/customLoadingOverlay";
 import { RoutePath } from "../../configs";
+import { NotiTypeEnum } from "../../constants";
+import { UIActions } from "../../redux/actions/uiActions";
+import UserSelectors from "../../redux/selectors/userSelectors";
 import TopicServices from "../../services/topicServices";
 
 function TopicManager() {
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const [topicName, setTopicName] = useState("");
   const [topicData, setTopicData] = useState([]);
   const [topicId, setTopicId] = useState();
-  const [open, setOpen] = useState(false);
+
+  const credentials = useSelector(UserSelectors.selectCredentials);
 
   const columns = [
+    { field: "name", headerName: "Topic", flex: 1 },
     {
-      field: "id",
-      headerName: "STT",
-      width: 120,
-      sortable: false,
-      renderCell: ({ rowIndex }) => rowIndex + 1,
+      field: "creator",
+      headerName: "Creator",
+      width: 160,
+      valueFormatter: ({ value }) => {
+        return value.username;
+      },
     },
-
-    { field: "name", headerName: "Topic", flex: 1, editable: true },
     {
       field: "createdAt",
       headerName: "Created Date",
@@ -46,15 +56,23 @@ function TopicManager() {
       },
     },
     {
-      field: "creator",
+      field: "updatedAt",
       headerName: "Actions",
       width: 150,
       sortable: false,
       renderCell: ({ row }) => {
         return (
-          <IconButton aria-label="delete" onClick={() => handleOpen(row.id)}>
-            <DeleteIcon />
-          </IconButton>
+          <>
+            {row.creator.id === credentials.id ? (
+              <IconButton
+                aria-label="delete"
+                onClick={() => handleOpen(row.id)}
+                disabled
+              >
+                {/* <DeleteIcon /> */}
+              </IconButton>
+            ) : null}
+          </>
         );
       },
     },
@@ -68,6 +86,7 @@ function TopicManager() {
     let { data } = await TopicServices.getAll();
     if (data.code === 200) {
       setTopicData(data.result);
+      setLoading(false);
     }
   }
 
@@ -81,6 +100,12 @@ function TopicManager() {
       if (data.code === 200) {
         setTopicName("");
         fetchTopic();
+        dispatch(
+          UIActions.showNotification(
+            NotiTypeEnum.success,
+            "Created topic successfully"
+          )
+        );
       }
     }
   };
@@ -98,6 +123,12 @@ function TopicManager() {
     await TopicServices.delete(topicId);
     fetchTopic();
     handleClose();
+    dispatch(
+      UIActions.showNotification(
+        NotiTypeEnum.success,
+        "Deleted topic successfully"
+      )
+    );
   };
 
   return (
@@ -144,6 +175,10 @@ function TopicManager() {
                 <DataGrid
                   pageSize={5}
                   rowsPerPageOptions={[5, 10, 20]}
+                  loading={loading}
+                  component={{
+                    LoadingOverlay: CustomLoadingOverlay,
+                  }}
                   autoHeight
                   rows={topicData}
                   columns={columns}

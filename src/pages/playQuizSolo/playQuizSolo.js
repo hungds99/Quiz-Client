@@ -86,9 +86,8 @@ function PlayQuizSolo() {
 
   useEffect(() => {
     let counterInterval;
-    // && hostData.currentQuestion === 0
     if (hostData) {
-      let counter = 2;
+      let counter = 6;
       counterInterval = setInterval(() => {
         setStartCounter(counter);
         if (counter === -1) {

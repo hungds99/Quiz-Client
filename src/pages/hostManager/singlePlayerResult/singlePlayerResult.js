@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   CircularProgress,
   Dialog,
   DialogContent,
@@ -10,99 +9,90 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import { green } from "@material-ui/core/colors";
+import BookIcon from "@material-ui/icons/Book";
+import CancelIcon from "@material-ui/icons/Cancel";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
+import PeopleIcon from "@material-ui/icons/People";
+import TodayIcon from "@material-ui/icons/Today";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
-import {
-  Bookmark as BookmarkIcon,
-  Calendar as CalendarIcon,
-  Globe as GlobeIcon,
-  HelpCircle as HelpCircleIcon,
-} from "react-feather";
-import { useHistory } from "react-router";
-import { RoutePath } from "../../configs";
-import { CommonEnum } from "../../constants";
-import AppHelper from "../../helpers";
-import HostServices from "../../services/hostServices";
-import QuizServices from "../../services/quizServices";
-import Transition from "../transition/transition";
+import AppHelper from "../../../helpers";
+import QuizServices from "../../../services/quizServices";
+import ScoreServices from "../../../services/scoreServices";
 
 const useStyles = makeStyles(() => ({
-  media: {
-    height: 140,
-  },
-  dialog: { position: "absolute", top: 10 },
-  creator: { display: "flex", alignItems: "center", gap: 5 },
   paper: {
     padding: 10,
     marginBottom: 10,
   },
   answerBox: {
+    position: "relative",
     display: "flex",
     alignItems: "center",
+    border: "1px solid blue",
+    borderRadius: 10,
     padding: 10,
     gap: 5,
+  },
+  yourChoosen: {
+    position: "absolute",
+    right: 0,
+    transform: "rotate(15deg)",
+    backgroundColor: "rgba(255, 255, 0, 0.6)",
   },
   questionHeader: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  action: {
-    marginTop: 10,
-    display: "flex",
-    gap: 10,
-  },
 }));
 
-function QuizDialog({ isOpen, quizId, onClose }) {
+function SinglePlayerResult({ host, isOpen, onClose }) {
   const classes = useStyles();
-  const hitory = useHistory();
 
-  const [quiz, setQuiz] = useState();
   const [loading, setLoading] = useState(true);
 
-  const handleCloseQuiz = () => {
-    onClose();
-  };
+  const [playerAnswer, setPlayerAnswer] = useState();
+  const [quiz, setQuiz] = useState();
 
   const fetchQuiz = async (id) => {
     let { data } = await QuizServices.get(id);
     if (data) {
       setQuiz(data);
-      setLoading(false);
+    }
+  };
+
+  const fetchPlayerAnswer = async (hostIdParam, playerIdParam) => {
+    let { data } = await ScoreServices.getPlayerAnswerResult({
+      hostId: hostIdParam,
+      playerId: playerIdParam,
+    });
+    if (data.code === 200) {
+      setPlayerAnswer(data.result);
     }
   };
 
   useEffect(() => {
-    fetchQuiz(quizId);
-  }, [quizId]);
-
-  const handleCreateHost = async () => {
-    let { data } = await HostServices.create(quiz.id);
-    if (data.code === 200) {
-      hitory.push(RoutePath.host.lobby.replace(":id", data.result.id));
+    if (host) {
+      fetchPlayerAnswer(host.id, host.creator);
+      fetchQuiz(host.quiz.id);
     }
-  };
+  }, [host]);
 
-  const handleCreateSinglePlay = async () => {
-    let { data } = await HostServices.createSinglePlay(quiz.id);
-    if (data.code === 200) {
-      hitory.push(RoutePath.player.solo.replace(":hostId", data.result.id));
+  useEffect(() => {
+    if (quiz && playerAnswer) {
+      setLoading(false);
     }
-  };
+  }, [quiz, playerAnswer]);
 
   return (
     <>
-      <Dialog
-        open={isOpen}
-        TransitionComponent={Transition}
-        onClose={handleCloseQuiz}
-        classes={{
-          paper: classes.dialog,
-        }}
-      >
-        {!loading ? (
+      <Dialog open={isOpen} onClose={() => onClose()}>
+        {loading ? (
+          <CircularProgress />
+        ) : (
           <>
             <DialogTitle disableTypography>
               <Box display="flex" gridGap={10}>
@@ -119,26 +109,24 @@ function QuizDialog({ isOpen, quizId, onClose }) {
                     <Grid container spacing={1}>
                       {[
                         {
-                          icon: <CalendarIcon />,
+                          icon: <TodayIcon />,
                           data: dayjs(quiz.createdAt).format("DD/MM/YYYY"),
                         },
                         {
-                          icon: <HelpCircleIcon />,
+                          icon: <HelpOutlineIcon />,
                           data: `${quiz.questions.length} Questions`,
                         },
                         {
-                          icon: <GlobeIcon />,
-                          data: quiz.isPublic
-                            ? CommonEnum.public
-                            : CommonEnum.private,
+                          icon: <PeopleIcon />,
+                          data: quiz.isPublic ? "Public" : "Private",
                         },
                         {
-                          icon: <BookmarkIcon />,
-                          data: quiz.topic ? quiz.topic.name : CommonEnum.other,
+                          icon: <BookIcon />,
+                          data: quiz.topic ? quiz.topic.name : "Khác",
                         },
                       ].map((value, index) => (
                         <Grid key={index} item xs={6}>
-                          <Box display="flex" alignItems="center" gridGap={5}>
+                          <Box display="flex" alignItems="center" gridGap={2}>
                             {value.icon}
                             <Typography variant="caption">
                               {value.data}
@@ -150,33 +138,13 @@ function QuizDialog({ isOpen, quizId, onClose }) {
                   </Box>
                 </Box>
               </Box>
-              <Box className={classes.action}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  onClick={handleCreateSinglePlay}
-                  disableElevation
-                >
-                  Start Quiz
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  onClick={handleCreateHost}
-                  disableElevation
-                >
-                  Create a host
-                </Button>
-              </Box>
             </DialogTitle>
             <DialogContent>
               <Box>
                 {quiz.questions && quiz.questions.length > 0
                   ? quiz.questions.map((question, index) => (
                       <Paper className={classes.paper} key={index}>
-                        <Grid container>
+                        <Grid container spacing={2}>
                           <Grid item xs={12} className={classes.questionHeader}>
                             <Typography>
                               {index + 1}. {question.question}
@@ -195,24 +163,35 @@ function QuizDialog({ isOpen, quizId, onClose }) {
                               </Box>
                             </Grid>
                           )}
-                          <Grid item container>
-                            {question.answers.map((answer, id) => (
-                              <Grid
-                                key={id}
-                                item
-                                xs={6}
-                                className={classes.answerBox}
-                              >
-                                {/* {answer.isCorrect ? (
-                                  <CheckCircleOutlineIcon />
+                        </Grid>
+                        <Grid container spacing={3}>
+                          {question.answers.map((answer, id) => (
+                            <Grid key={id} item xs={6}>
+                              <Box className={classes.answerBox}>
+                                {answer.isCorrect ? (
+                                  <CheckCircleOutlineIcon
+                                    style={{ color: green[500] }}
+                                  />
                                 ) : (
-                                  <RadioButtonUncheckedIcon />
-                                )} */}
-                                <RadioButtonUncheckedIcon />
+                                  <CancelIcon color="secondary" />
+                                )}
                                 <Typography>{answer.answer}</Typography>
-                              </Grid>
-                            ))}
-                          </Grid>
+                                {playerAnswer.map(
+                                  (pa, index) =>
+                                    pa.playerAnswer === answer._id && (
+                                      <Box
+                                        key={index}
+                                        className={classes.yourChoosen}
+                                      >
+                                        <Typography variant="caption">
+                                          Your Answer + {pa.score}
+                                        </Typography>
+                                      </Box>
+                                    )
+                                )}
+                              </Box>
+                            </Grid>
+                          ))}
                         </Grid>
                       </Paper>
                     ))
@@ -220,14 +199,12 @@ function QuizDialog({ isOpen, quizId, onClose }) {
               </Box>
             </DialogContent>
           </>
-        ) : (
-          <CircularProgress />
         )}
       </Dialog>
     </>
   );
 }
 
-QuizDialog.propTypes = {};
+SinglePlayerResult.propTypes = {};
 
-export default QuizDialog;
+export default SinglePlayerResult;

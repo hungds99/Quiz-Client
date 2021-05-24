@@ -7,15 +7,12 @@ export const RoutePath = Object.freeze({
     index: "/dashboard",
     library: "/dashboard/library",
     topic: "/dashboard/topics",
-    profile: "/dashboard/profile",
     host: "/dashboard/hosts",
-    settings: "/dashboard/setttings",
   },
   quiz: {
-    create: "/quiz/create/:id",
-    detail: "/quiz/detail/:id",
+    create: "/dashboard/quiz/create/:id",
+    detail: "/dashboard/quiz/detail/:id",
     edit: "/quiz/edit/:id",
-    list: "/quiz",
   },
   host: {
     lobby: "/host/lobby/:id",

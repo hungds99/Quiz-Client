@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import React from "react";
 import { useHistory } from "react-router";
 import { ImageLink, RoutePath } from "../../configs";
+import AppHelper from "../../helpers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,11 +57,7 @@ export default function QuizCard({ quiz }) {
       <Box className={classes.cover}>
         <img
           height="100%"
-          src={
-            quiz.thumbnail
-              ? `http://localhost:4002/${quiz.thumbnail}`
-              : ImageLink.defaultImage
-          }
+          src={AppHelper.getImageLink(quiz.thumbnail)}
           alt="quiz thumbnail"
         />
       </Box>

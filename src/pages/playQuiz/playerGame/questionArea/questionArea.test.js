@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import LeftBar from "./leftBar";
+import QuestionArea from "./questionArea";
 
-describe("LeftBar", () => {
+describe("QuestionArea", () => {
   test("matches snapshot", () => {
-    const wrapper = shallow(<LeftBar />);
+    const wrapper = shallow(<QuestionArea />);
     expect(wrapper).toMatchSnapshot();
   });
 });

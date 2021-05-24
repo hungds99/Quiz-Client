@@ -40,10 +40,6 @@ const useStyles = makeStyles(() => ({
   container: {
     height: "100%",
     backgroundColor: "#3e403f",
-    // backgroundImage: `url(${"/static/images/backgrounds/sakura_rainbow_art_127295_1366x768.jpg"})`,
-    // backgroundPosition: "center",
-    // backgroundRepeat: "no-repeat",
-    // backgroundSize: "cover",
   },
   answerBox: {
     display: "flex",
@@ -158,6 +154,7 @@ function HostGame() {
                       {questions.length > 0 &&
                         questions.map((qtn, index) => (
                           <Question
+                            key={index}
                             question={qtn}
                             index={index}
                             isActive={qtn.id === question.id}
@@ -170,7 +167,7 @@ function HostGame() {
                   <Box className={classes.headerTitle}>
                     <TimerIcon />
                     <p>
-                      Time Remain:{" "}
+                      Time :{" "}
                       <span className={classes.questionCounter}>
                         {questionCounter}
                       </span>

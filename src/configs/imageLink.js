@@ -4,4 +4,5 @@ export const ImageLink = Object.freeze({
   logoLoad: "/static/logo-load.svg",
   defaultImage: "/static/images/default-image.jpg",
   folderEmpty: "/static/images/folder-empty.png",
+  banner: "/static/banner/banner.png",
 });

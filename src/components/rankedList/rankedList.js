@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@material-ui/core";
 import React from "react";
+import AppHelper from "../../helpers";
 
 function RankedList({ playerRanked }) {
   return (
@@ -28,7 +29,9 @@ function RankedList({ playerRanked }) {
               <TableRow key={index}>
                 <TableCell align="center">{index + 1}</TableCell>
                 <TableCell align="center">
-                  <Avatar>H</Avatar>
+                  <Avatar src={AppHelper.getImageLink(player.player.avatar)}>
+                    H
+                  </Avatar>
                 </TableCell>
                 <TableCell align="center">{player.player.username}</TableCell>
                 <TableCell align="center">

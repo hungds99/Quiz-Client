@@ -98,10 +98,6 @@ const App = () => {
           component={TopicManager}
         />
         <DashboardAuthRoute
-          path={RoutePath.dashboard.profile}
-          component={Profile}
-        />
-        <DashboardAuthRoute
           path={RoutePath.dashboard.host}
           component={HostManager}
         />

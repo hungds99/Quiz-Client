@@ -2,6 +2,7 @@ import { Box, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { ImageLink } from "../../configs";
 import { SET_LOADING_PAGE, SET_NO_LOADING_PAGE } from "../../constants/types";
 import TopicServices from "../../services/topicServices";
 import Topic from "./topic/topic";
@@ -112,6 +113,7 @@ function Home() {
                     allow="autoplay"
                     allowFullScreen
                   ></iframe> */}
+                  <img width="100%" alt="banner" src={ImageLink.banner} />
                 </Paper>
               </Grid>
             </Grid>

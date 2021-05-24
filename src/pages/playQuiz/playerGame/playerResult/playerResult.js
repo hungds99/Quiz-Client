@@ -1,6 +1,7 @@
 import { Box, Grid, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import { IconLink } from "../../../../configs";
+import AppHelper from "../../../../helpers";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -42,13 +43,8 @@ const useStyles = makeStyles(() => ({
 
 function PlayerResult({ result }) {
   const classes = useStyles();
-  let {
-    question,
-    correctAnswer,
-    playerChoiseAnswer,
-    score,
-    totalScore,
-  } = result;
+  let { question, correctAnswer, playerChoiseAnswer, score, totalScore } =
+    result;
   return (
     <>
       <Box className={classes.root}>
@@ -72,7 +68,7 @@ function PlayerResult({ result }) {
                 data:
                   playerChoiseAnswer && playerChoiseAnswer.answer
                     ? playerChoiseAnswer.answer
-                    : "Bạn đã không trả lời câu hỏi ?",
+                    : "You have no answer",
               },
             ].map((value, index) => (
               <Grid key={index} container className={classes.questionInfo}>
@@ -86,7 +82,7 @@ function PlayerResult({ result }) {
                     <Box mt={1}>
                       <img
                         width={200}
-                        src={`http://localhost:4002/${value.image}`}
+                        src={AppHelper.getImageLink(value.image)}
                         alt="question"
                       />
                     </Box>

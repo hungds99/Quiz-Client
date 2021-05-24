@@ -4,9 +4,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Dialog,
-  DialogContent,
-  DialogTitle,
   IconButton,
   makeStyles,
   Tooltip,
@@ -18,10 +15,11 @@ import clsx from "clsx";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import RankedList from "../../components/rankedList/rankedList";
-import { IconLink, RoutePath } from "../../configs";
+import CustomLoadingOverlay from "../../components/common/customLoadingOverlay/customLoadingOverlay";
+import { RoutePath } from "../../configs";
 import HostServices from "../../services/hostServices";
-import ScoreServices from "../../services/scoreServices";
+import MultiPlayersResult from "./multiPlayersResult/multiPlayersResult";
+import SinglePlayerResult from "./singlePlayerResult/singlePlayerResult";
 
 const useStyles = makeStyles(() => ({
   hostType: {
@@ -47,28 +45,22 @@ const useStyles = makeStyles(() => ({
 function HostManager() {
   const classes = useStyles();
   const [hostData, setHostData] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [hostResult, setHostResult] = useState();
-
-  const handleShowHostResult = async (hostId, isSolo) => {
-    if (isSolo) {
-    } else {
-      let { data } = await ScoreServices.getPlayersHostResult(hostId);
-      if (data.code === 200) {
-        setHostResult(data.result);
-        setOpen(true);
-      }
-    }
-  };
+  const [openSingle, setOpenSingle] = useState(false);
+  const [openMulti, setOpenMulti] = useState(false);
+  const [host, setHost] = useState();
+  const [loading, setLoading] = useState(true);
 
   const columns = [
-    {
-      field: "id",
-      headerName: "STT",
-      width: 120,
-      sortable: false,
-      renderCell: ({ rowIndex }) => rowIndex + 1,
-    },
+    // {
+    //   field: "id",
+    //   headerName: "STT",
+    //   width: 120,
+    //   sortable: false,
+    //   renderCell: (params) => {
+    //     console.log("Params : ", params);
+    //     return params.rowIndex + 1;
+    //   },
+    // },
     {
       field: "isSolo",
       headerName: "Host Type",
@@ -132,7 +124,7 @@ function HostManager() {
             variant="outlined"
             color="primary"
             size="small"
-            onClick={() => handleShowHostResult(row.id, row.isSolo)}
+            onClick={() => handleShowHostResult(row, row.isSolo)}
           >
             Show Result
           </Button>
@@ -141,10 +133,21 @@ function HostManager() {
     },
   ];
 
+  const handleShowHostResult = async (host, isSolo) => {
+    if (isSolo) {
+      setHost(host);
+      setOpenSingle(true);
+    } else {
+      setHost(host);
+      setOpenMulti(true);
+    }
+  };
+
   async function fetchHost() {
     let { data } = await HostServices.getOwner();
     if (data.code === 200) {
       setHostData(data.result);
+      setLoading(false);
     }
   }
 
@@ -156,7 +159,7 @@ function HostManager() {
     <>
       <Card raised>
         <CardHeader
-          title="Topic Manager"
+          title="Host Owner"
           action={
             <Tooltip title="Go back">
               <IconButton component={Link} to={RoutePath.dashboard.library}>
@@ -171,6 +174,10 @@ function HostManager() {
               pageSize={5}
               rowsPerPageOptions={[5, 10, 20]}
               autoHeight
+              loading={loading}
+              component={{
+                LoadingOverlay: CustomLoadingOverlay,
+              }}
               rows={hostData}
               columns={columns}
               disableSelectionOnClick
@@ -178,25 +185,20 @@ function HostManager() {
           </Box>
         </CardContent>
       </Card>
-      <Dialog
-        open={open}
-        onClose={() => setOpen(false)}
-        fullWidth={true}
-        maxWidth={"sm"}
-        classes={{
-          paper: classes.dialog,
-        }}
-      >
-        <DialogTitle className={classes.dialogTitle} disableTypography>
-          <Box>
-            <img width={50} src={IconLink.cup} alt="winner ranked" />
-          </Box>
-          <Typography variant="h4">Top Ranked Players</Typography>
-        </DialogTitle>
-        <DialogContent>
-          <RankedList playerRanked={hostResult} />
-        </DialogContent>
-      </Dialog>
+      {openSingle && host && (
+        <SinglePlayerResult
+          isOpen={openSingle}
+          host={host}
+          onClose={() => setOpenSingle(false)}
+        />
+      )}
+      {openMulti && host && (
+        <MultiPlayersResult
+          isOpen={openMulti}
+          host={host}
+          onClose={() => setOpenMulti(false)}
+        />
+      )}
     </>
   );
 }

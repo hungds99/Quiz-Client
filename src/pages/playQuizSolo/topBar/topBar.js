@@ -9,6 +9,8 @@ import {
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
 import HomeIcon from "@material-ui/icons/Home";
 import React from "react";
+import { Link } from "react-router-dom";
+import { RoutePath } from "../../../configs";
 
 const useStyles = makeStyles((theme) => ({
   home: { marginRight: theme.spacing(2) },
@@ -25,8 +27,8 @@ function TopBar({ title }) {
         <IconButton
           edge="start"
           color="inherit"
-          //   component={Link}
-          //   to={RoutePath.home}
+          component={Link}
+          to={RoutePath.home}
           className={classes.home}
         >
           <HomeIcon />

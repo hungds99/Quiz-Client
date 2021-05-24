@@ -16,6 +16,7 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TypeActions } from "../../constants";
+import AppHelper from "../../helpers";
 import UserSelectors from "../../redux/selectors/userSelectors";
 import UserServices from "../../services/userServices";
 import TabPanel from "../tabPanel/tabPanel";
@@ -88,7 +89,7 @@ function ProfileDialog({ isOpenProfile, onCloseProfile }) {
                 <Avatar
                   className={classes.avatarSize}
                   onClick={() => avatarRef.current.click()}
-                  src={`http://localhost:4002/${credentials.avatar}`}
+                  src={AppHelper.getImageLink(credentials.avatar)}
                 >
                   H
                 </Avatar>

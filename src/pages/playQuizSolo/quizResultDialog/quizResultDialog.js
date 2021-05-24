@@ -10,18 +10,19 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
+import { green } from "@material-ui/core/colors";
 import BookIcon from "@material-ui/icons/Book";
+import CancelIcon from "@material-ui/icons/Cancel";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import PeopleIcon from "@material-ui/icons/People";
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import TodayIcon from "@material-ui/icons/Today";
 import dayjs from "dayjs";
-import React, { useEffect } from "react";
-import { useHistory } from "react-router";
+import React from "react";
 import { Link } from "react-router-dom";
 import Transition from "../../../components/transition/transition";
-import { ImageLink, RoutePath } from "../../../configs";
+import { RoutePath } from "../../../configs";
+import AppHelper from "../../../helpers";
 
 const useStyles = makeStyles(() => ({
   media: {
@@ -66,11 +67,6 @@ const useStyles = makeStyles(() => ({
 
 function QuizResultDialog({ isOpen, quiz, playerAnswer, onClose, totalScore }) {
   const classes = useStyles();
-  const hitory = useHistory();
-
-  useEffect(() => {
-    console.log("Player Answer 1: ", playerAnswer);
-  }, [playerAnswer]);
 
   const handleCloseQuiz = () => {
     onClose && onClose();
@@ -90,16 +86,12 @@ function QuizResultDialog({ isOpen, quiz, playerAnswer, onClose, totalScore }) {
           <Box display="flex" gridGap={10}>
             <img
               width="200"
-              src={
-                quiz.thumbnail
-                  ? `http://localhost:4002/${quiz.thumbnail}`
-                  : ImageLink.defaultImage
-              }
+              src={AppHelper.getImageLink(quiz.thumbnail)}
               alt="thumb"
             />
             <Box>
               <Typography gutterBottom variant="h5" component="h2">
-                {quiz.title ? quiz.title : "Bạn chưa đặt tên !"}
+                {quiz.title ? quiz.title : "Title is default !"}
               </Typography>
               <Box mt={2} mb={2}>
                 <Grid container spacing={1}>
@@ -151,7 +143,7 @@ function QuizResultDialog({ isOpen, quiz, playerAnswer, onClose, totalScore }) {
                             <img
                               width="200"
                               height="auto"
-                              src={`http://localhost:4002/${question.image}`}
+                              src={AppHelper.getImageLink(question.image)}
                               alt="Media"
                             />
                           </Box>
@@ -163,9 +155,11 @@ function QuizResultDialog({ isOpen, quiz, playerAnswer, onClose, totalScore }) {
                         <Grid key={id} item xs={6}>
                           <Box className={classes.answerBox}>
                             {answer.isCorrect ? (
-                              <CheckCircleOutlineIcon />
+                              <CheckCircleOutlineIcon
+                                style={{ color: green[500] }}
+                              />
                             ) : (
-                              <RadioButtonUncheckedIcon />
+                              <CancelIcon color="secondary" />
                             )}
                             <Typography>{answer.answer}</Typography>
                             {playerAnswer.map(

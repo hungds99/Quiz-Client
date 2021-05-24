@@ -13,9 +13,10 @@ import {
   Tooltip,
   Typography,
 } from "@material-ui/core";
+import { green } from "@material-ui/core/colors";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import CancelIcon from "@material-ui/icons/Cancel";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -201,7 +202,6 @@ function QuizDetail() {
                       <Grid container>
                         <Grid item xs={12} className={classes.questionHeader}>
                           <Typography>
-                            {" "}
                             {index + 1}. {question.question}
                           </Typography>
                           <Typography>{question.time}s</Typography>
@@ -212,7 +212,7 @@ function QuizDetail() {
                               <img
                                 width="200"
                                 height="auto"
-                                src={`http://localhost:4002/${question.image}`}
+                                src={AppHelper.getImageLink(question.image)}
                                 alt="Media"
                               />
                             </Box>
@@ -227,11 +227,12 @@ function QuizDetail() {
                               className={classes.answerBox}
                             >
                               {answer.isCorrect ? (
-                                <CheckCircleOutlineIcon />
+                                <CheckCircleOutlineIcon
+                                  style={{ color: green[500] }}
+                                />
                               ) : (
-                                <RadioButtonUncheckedIcon />
+                                <CancelIcon color="secondary" />
                               )}
-
                               <Typography>{answer.answer}</Typography>
                             </Grid>
                           ))}

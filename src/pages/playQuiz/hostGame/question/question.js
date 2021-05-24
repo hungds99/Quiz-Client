@@ -1,10 +1,11 @@
 import { Box, Grid, makeStyles } from "@material-ui/core";
 import React from "react";
+import AppHelper from "../../../../helpers";
 import Answer from "../answer/answer";
 
 const useStyles = makeStyles(() => ({
   isActive: {
-    backgroundColor: "#e2eca9",
+    backgroundColor: "#fff57d",
   },
 }));
 
@@ -22,7 +23,7 @@ function Question({ index, question, isActive }) {
               <img
                 width="200"
                 height="auto"
-                src={`http://localhost:4002/${question.image}`}
+                src={AppHelper.getImageLink(question.image)}
                 alt="Media question"
               />
             </Box>
