@@ -1,4 +1,3 @@
-import { makeStyles } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
 import StartCounter from "../../../components/startCounter/startCounter";
@@ -7,11 +6,7 @@ import PlayerRanked from "./playerRanked/playerRanked";
 import PlayerResult from "./playerResult/playerResult";
 import QuestionArea from "./questionArea/questionArea";
 
-const useStyles = makeStyles(() => ({}));
-
 function PlayerGame() {
-  const classes = useStyles();
-
   const questionResult = useSelector(HostSelectors.selectGameData);
 
   const playersTotalScore = useSelector(HostSelectors.selectPlayersTotalScore);

@@ -63,7 +63,7 @@ function PlayerLobby() {
   }, [host]);
 
   useEffect(() => {
-    if (startCounter !== -1) {
+    if (startCounter) {
       history.push(RoutePath.player.started.replace(":hostId", hostId));
     }
   }, [startCounter, history, hostId]);

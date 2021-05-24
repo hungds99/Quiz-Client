@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
 function Question({ index, question, isActive }) {
   const classes = useStyles();
   return (
-    <Box className={isActive && classes.isActive} paddingLeft={2}>
+    <Box className={isActive ? classes.isActive : ""} paddingLeft={2}>
       <Grid container>
         <Grid item xs={12}>
           <Box paddingTop={1} marginBottom={1}>

@@ -58,7 +58,7 @@ const Register = () => {
   };
 
   return (
-    <Page className={classes.root} title="Register">
+    <Page className={classes.root}>
       <Box
         display="flex"
         flexDirection="column"

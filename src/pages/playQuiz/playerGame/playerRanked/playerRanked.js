@@ -10,11 +10,12 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
+import LinkHref from "@material-ui/core/Link";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import RankedList from "../../../../components/rankedList/rankedList";
 import { IconLink, RoutePath } from "../../../../configs";
+import AppHelper from "../../../../helpers";
 import UserSelectors from "../../../../redux/selectors/userSelectors";
 
 const useStyles = makeStyles(() => ({
@@ -65,9 +66,9 @@ function PlayerRanked({ result }) {
                         <TableHead>
                           <TableRow>
                             <TableCell align="center">{id + 1}</TableCell>
-                            <TableCell align="center">
-                              <Avatar>H</Avatar>
-                            </TableCell>
+                            <Avatar src={AppHelper.getImageLink(user.avatar)}>
+                              H
+                            </Avatar>
                             <TableCell align="center">
                               {user.username}
                             </TableCell>
@@ -82,7 +83,7 @@ function PlayerRanked({ result }) {
               })}
             </Box>
             <Box mt={2} textAlign="center">
-              <Typography component={Link} to={RoutePath.home}>
+              <Typography component={LinkHref} to={RoutePath.home}>
                 Back to home
               </Typography>
             </Box>

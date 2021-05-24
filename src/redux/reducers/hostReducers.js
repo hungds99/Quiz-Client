@@ -7,8 +7,8 @@ const initialState = {
   gameData: null,
   question: {},
   questions: [],
-  startCounter: -1,
-  questionCounter: 10000,
+  startCounter: null,
+  questionCounter: null,
   playersTotalScore: [],
 };
 
@@ -64,6 +64,8 @@ export const HostReducers = (state = initialState, actions) => {
         ...state,
         gameData: actions.payload,
       };
+    case TypeActions.RESET_HOST:
+      return initialState;
     default:
       return state;
   }
