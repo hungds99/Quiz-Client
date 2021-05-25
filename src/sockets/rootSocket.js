@@ -20,7 +20,7 @@ import {
   onResponsePlayerJoin,
 } from "./quizSockets";
 
-const endpoint = "http://localhost:4002";
+const endpoint = process.env.REACT_APP_SOCKET_ENDPOINT;
 
 const token = getToken();
 

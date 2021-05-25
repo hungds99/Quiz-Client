@@ -15,6 +15,9 @@ const UserServices = {
       password,
     });
   },
+  get: async (userId) => {
+    return await AxiosNetwork.get(APIRouter.user.get.replace(":id", userId));
+  },
   uploadAvatar: async (formData) => {
     return await AxiosMediaNetwork.post(APIRouter.user.uploadAvatar, formData);
   },

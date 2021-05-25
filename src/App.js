@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import jwtDecode from "jwt-decode";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import "./app.css";
 import {
@@ -25,6 +25,7 @@ import Dashboard from "./pages/dashboard";
 import Explore from "./pages/explore/explore";
 import Home from "./pages/home";
 import HostManager from "./pages/hostManager/hostManager";
+import NotFound from "./pages/notFound/notFound";
 import HostGame from "./pages/playQuiz/hostGame/hostGame";
 import HostLobby from "./pages/playQuiz/hostLobby/hostLobby";
 import PlayerGame from "./pages/playQuiz/playerGame/playerGame";
@@ -35,6 +36,7 @@ import Profile from "./pages/profile/profile";
 import QuizDetail from "./pages/quizDetail/quizDetail";
 import Quizz from "./pages/quizz/quizz";
 import TopicManager from "./pages/topicManager/topicManager";
+import { UserActions } from "./redux/actions";
 import UISelectors from "./redux/selectors/uiSelectors";
 import { getStore } from "./redux/store";
 import { GlobalStyles, Theme } from "./theme";
@@ -51,21 +53,19 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const loading = useSelector(UISelectors.selectLoading);
 
   useEffect(() => {
     let token = isAuthenticated();
     if (token) {
-      const decodedToken = jwtDecode(token);
-
-      // Lấy thông tin user từ token lưu vào store
-      getStore().dispatch({
-        type: TypeActions.SET_CREDENTIALS,
-        payload: decodedToken.user,
-      });
+      const {
+        user: { id },
+      } = jwtDecode(token);
+      dispatch(UserActions.getUserInfo(id));
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={Theme}>
@@ -120,6 +120,9 @@ const App = () => {
 
         {/* Player Solo */}
         <AuthRoute path={RoutePath.player.solo} component={PlayQuizSolo} />
+
+        {/* Not Found */}
+        <MainAuthRoute component={NotFound} />
       </Switch>
 
       {/* Loadding Page */}

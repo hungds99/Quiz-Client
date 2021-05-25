@@ -237,7 +237,7 @@ function HostGame() {
         <DialogContent>
           <RankedList playerRanked={playersTotalScore} />
           <Box mt={5} mb={2} textAlign="center">
-            <Typography component={LinkHref} to={RoutePath.dashboard.library}>
+            <Typography component={LinkHref} href={RoutePath.home}>
               Finish Game
             </Typography>
           </Box>

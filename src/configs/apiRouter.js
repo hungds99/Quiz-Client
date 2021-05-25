@@ -2,6 +2,7 @@ export const APIRouter = Object.freeze({
   user: {
     login: "/user/authenticate",
     register: "/user/register",
+    get: "/user/:id",
     profile: "/user/profile",
     uploadAvatar: "/user/upload-avatar",
     update: "/user/:id",

@@ -1,8 +1,8 @@
-import { AppConfig, ImageLink } from "../configs";
+import { ImageLink } from "../configs";
 
 function getImageLink(imageUrl) {
   if (imageUrl) {
-    return `${AppConfig.SERVER_URL}${imageUrl}`;
+    return imageUrl;
   }
   return ImageLink.defaultImage;
 }
