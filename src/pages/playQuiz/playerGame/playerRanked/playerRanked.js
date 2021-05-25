@@ -83,7 +83,7 @@ function PlayerRanked({ result }) {
               })}
             </Box>
             <Box mt={2} textAlign="center">
-              <Typography component={LinkHref} to={RoutePath.home}>
+              <Typography component={LinkHref} href={RoutePath.home}>
                 Back to home
               </Typography>
             </Box>
