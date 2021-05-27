@@ -39,11 +39,12 @@ import UISelectors from "./redux/selectors/uiSelectors";
 import { GlobalStyles, Theme } from "./theme";
 import "./utils/i18n";
 
+// Fix some code
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
-    color: "#fff",
-    backgroundColor: "#fff",
+    color: "#ffffff",
+    backgroundColor: "#ffffff",
     overflow: "hidden",
   },
 }));
