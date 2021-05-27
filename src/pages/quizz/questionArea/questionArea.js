@@ -185,20 +185,8 @@ function QuestionArea() {
 
       if (questionParams.id) {
         dispatch(QuestionActions.update(questionParams.id, questionParams));
-        dispatch(
-          UIActions.showNotification(
-            NotiTypeEnum.success,
-            "Updated question sucessfully"
-          )
-        );
       } else {
         dispatch(QuestionActions.create(questionParams));
-        dispatch(
-          UIActions.showNotification(
-            NotiTypeEnum.success,
-            "Created question sucessfully"
-          )
-        );
       }
     }
   };
@@ -210,12 +198,6 @@ function QuestionArea() {
   const handleDelete = async () => {
     await dispatch(QuestionActions.delete(question.id));
     setOpen(!open);
-    dispatch(
-      UIActions.showNotification(
-        NotiTypeEnum.success,
-        "Deleted question sucessfully"
-      )
-    );
   };
 
   const handleChangeImage = async (e) => {
@@ -312,7 +294,10 @@ function QuestionArea() {
               {questionData.answers.map((answer, index) => (
                 <Grid key={index} item xs={6}>
                   <Box display="flex">
-                    <FormControlLabel value={index} control={<Radio />} />
+                    <FormControlLabel
+                      value={index}
+                      control={<Radio color="primary" />}
+                    />
                     <TextField
                       fullWidth
                       variant="outlined"
@@ -348,7 +333,6 @@ function QuestionArea() {
                     color="primary"
                     size="small"
                     startIcon={<SaveIcon />}
-                    // onClick={handleSubmitQuestion}
                   >
                     Update Question
                   </Button>
@@ -372,7 +356,6 @@ function QuestionArea() {
                   size="small"
                   startIcon={<SaveIcon />}
                   type="submit"
-                  //   onClick={handleSubmitQuestion}
                 >
                   Add Question
                 </Button>

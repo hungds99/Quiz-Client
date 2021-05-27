@@ -14,6 +14,7 @@ export const emitPlayerJoinRoom = (payload) => {
 
 // Lắng nghe sự kiện user tham gia vào room
 export const onResponsePlayerJoinRoom = (payload) => {
+  console.log("Set Player Join :", payload);
   getStore().dispatch({
     type: TypeActions.SET_PLAYER_JOIN,
     payload: payload,

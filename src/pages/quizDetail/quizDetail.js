@@ -94,13 +94,13 @@ function QuizDetail() {
     let { data } = await QuizServices.delete(id);
     if (data.code === 200) {
       setOpen(false);
-      hitory.push(RoutePath.dashboard.library);
       dispatch(
         UIActions.showNotification(
           NotiTypeEnum.success,
-          "Deleted question sucessfully"
+          "Deleted quiz sucessfully"
         )
       );
+      hitory.push(RoutePath.dashboard.library);
     }
   };
 

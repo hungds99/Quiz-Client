@@ -1,8 +1,11 @@
 import { Box, Button, makeStyles, TextField } from "@material-ui/core";
 import GraphicEqIcon from "@material-ui/icons/GraphicEq";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { RoutePath } from "../../../configs";
+import { NotiTypeEnum } from "../../../constants";
+import { UIActions } from "../../../redux/actions/uiActions";
 import HostServices from "../../../services/hostServices";
 
 const useStyles = makeStyles(() => ({
@@ -18,6 +21,7 @@ const useStyles = makeStyles(() => ({
 const PlayerJoin = () => {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
   const [pin, setPin] = useState();
 
   const handleChangePin = (e) => {
@@ -26,9 +30,15 @@ const PlayerJoin = () => {
   };
 
   const handleJoinGame = async () => {
-    const { data } = await HostServices.getByPin(pin);
-    if (data && data.result && data.result.pin) {
-      history.push(RoutePath.player.lobby.replace(":hostId", data.result.id));
+    if (pin) {
+      const { data } = await HostServices.getByPin(pin);
+      if (data && data.result && data.result.pin) {
+        history.push(RoutePath.player.lobby.replace(":hostId", data.result.id));
+      } else {
+        dispatch(
+          UIActions.showNotification(NotiTypeEnum.error, "Pin is not correct")
+        );
+      }
     }
   };
   return (

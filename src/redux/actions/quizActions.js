@@ -1,5 +1,6 @@
-import { TypeActions } from "../../constants";
+import { NotiTypeEnum, TypeActions } from "../../constants";
 import QuizServices from "../../services/quizServices";
+import { UIActions } from "./uiActions";
 
 export const QuizActions = {
   get: (quizId) => async (dispatch) => {
@@ -22,6 +23,12 @@ export const QuizActions = {
         type: TypeActions.UPDATE_QUIZ,
         payload: response.data.result,
       });
+      dispatch(
+        UIActions.showNotification(
+          NotiTypeEnum.success,
+          "Updated quiz info successfully"
+        )
+      );
     } catch (error) {
       console.error(error);
     }
@@ -33,6 +40,9 @@ export const QuizActions = {
         type: TypeActions.UPLOAD_QUIZ_THUMBNAIL,
         payload: response.data.result,
       });
+      dispatch(
+        UIActions.showNotification(NotiTypeEnum.info, "Added image thumbnail")
+      );
     } catch (error) {
       console.error(error);
     }

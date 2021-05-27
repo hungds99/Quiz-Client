@@ -1,26 +1,20 @@
-import {
-  Backdrop,
-  Box,
-  Button,
-  CircularProgress,
-  List,
-} from "@material-ui/core";
+import { Box, Button, List } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
+import _ from "lodash";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { TypeActions } from "../../constants";
+import { RESET_QUIZ } from "../../constants/types";
 import { QuizActions } from "../../redux/actions/quizActions";
 import QuizSelectors from "../../redux/selectors/quizSelectors";
-import UISelectors from "../../redux/selectors/uiSelectors";
 import EditQuizDialog from "./editQuizDialog/editQuizDialog";
 import Question from "./question/question";
 import QuestionArea from "./questionArea/questionArea";
 import TopBar from "./topBar/topBar";
-import _ from "lodash";
 
 const drawerWidth = 400;
 
@@ -61,6 +55,12 @@ export default function Quizz() {
   useEffect(() => {
     dispatch(QuizActions.get(id));
   }, [dispatch, id]);
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: RESET_QUIZ });
+    };
+  }, [dispatch]);
 
   const quiz = useSelector(QuizSelectors.selectQuiz);
   const questions = useSelector(QuizSelectors.selectQuestions);

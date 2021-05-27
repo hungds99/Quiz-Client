@@ -16,10 +16,8 @@ import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
-import { ImageLink } from "../../../configs";
 import AppHelper from "../../../helpers";
 import ScoreServices from "../../../services/scoreServices";
-
 const useStyles = makeStyles(() => ({
   paper: {
     marginBottom: 10,

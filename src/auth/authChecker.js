@@ -1,7 +1,3 @@
-import jwtDecode from "jwt-decode";
-import { TypeActions } from "../constants";
-import { getStore } from "../redux/store";
-
 export const isAuthenticated = () => {
   let token = localStorage.getItem("token");
   if (token) {
