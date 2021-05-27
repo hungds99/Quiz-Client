@@ -16,4 +16,8 @@ export const IconLink = Object.freeze({
   public: "/static/icons/global.svg",
   private: "/static/icons/private.svg",
   topic: "/static/icons/topic.svg",
+  one: "/static/icons/1.svg",
+  two: "/static/icons/2.svg",
+  three: "/static/icons/3.svg",
+  four: "/static/icons/4.svg",
 });

@@ -20,7 +20,6 @@ import CustomizedSnackbars from "./components/common/customizedSnackbars/customi
 import Login from "./components/login/login";
 import Register from "./components/register/register";
 import { RoutePath } from "./configs";
-import { TypeActions } from "./constants";
 import Dashboard from "./pages/dashboard";
 import Explore from "./pages/explore/explore";
 import Home from "./pages/home";
@@ -32,13 +31,11 @@ import PlayerGame from "./pages/playQuiz/playerGame/playerGame";
 import PlayerJoin from "./pages/playQuiz/playerJoin/playerJoin";
 import PlayerLobby from "./pages/playQuiz/playerLobby/playerLobby";
 import PlayQuizSolo from "./pages/playQuizSolo/playQuizSolo";
-import Profile from "./pages/profile/profile";
 import QuizDetail from "./pages/quizDetail/quizDetail";
 import Quizz from "./pages/quizz/quizz";
 import TopicManager from "./pages/topicManager/topicManager";
 import { UserActions } from "./redux/actions";
 import UISelectors from "./redux/selectors/uiSelectors";
-import { getStore } from "./redux/store";
 import { GlobalStyles, Theme } from "./theme";
 import "./utils/i18n";
 

@@ -1,4 +1,3 @@
-import { Toolbar } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import { makeStyles } from "@material-ui/core/styles";
 import MuiAlert from "@material-ui/lab/Alert";

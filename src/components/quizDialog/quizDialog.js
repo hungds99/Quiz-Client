@@ -221,7 +221,9 @@ function QuizDialog({ isOpen, quizId, onClose }) {
             </DialogContent>
           </>
         ) : (
-          <CircularProgress />
+          <DialogContent>
+            <CircularProgress />
+          </DialogContent>
         )}
       </Dialog>
     </>

@@ -1,11 +1,9 @@
 import { Box, CircularProgress, makeStyles } from "@material-ui/core";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { RoutePath } from "../../../configs";
-import { HostActions } from "../../../redux/actions";
 import HostSelectors from "../../../redux/selectors/hostSelectors";
-import HostServices from "../../../services/hostServices";
 import { emitPlayerJoinRoom } from "../../../sockets/hostSockets";
 import { configSocket } from "../../../sockets/rootSocket";
 
@@ -43,24 +41,14 @@ const useStyles = makeStyles(() => ({
 
 function PlayerLobby() {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const history = useHistory();
-
   const { hostId } = useParams();
-
-  const host = useSelector(HostSelectors.selectHost);
   const startCounter = useSelector(HostSelectors.selectStartCounter);
 
   useEffect(() => {
-    dispatch(HostActions.get(hostId));
-  }, [dispatch, hostId]);
-
-  useEffect(() => {
-    if (host.id) {
-      configSocket();
-      emitPlayerJoinRoom(host);
-    }
-  }, [host]);
+    configSocket();
+    emitPlayerJoinRoom({ id: hostId });
+  }, [hostId]);
 
   useEffect(() => {
     if (startCounter) {

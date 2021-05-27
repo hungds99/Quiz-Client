@@ -1,5 +1,6 @@
-import { TypeActions } from "../../constants";
+import { NotiTypeEnum, TypeActions } from "../../constants";
 import QuestionServices from "../../services/questionServices";
+import { UIActions } from "./uiActions";
 
 export const QuestionActions = {
   create: (questionParams) => async (dispatch) => {
@@ -15,6 +16,12 @@ export const QuestionActions = {
         payload: response.data,
       });
       dispatch({ type: TypeActions.SET_LOADING_PAGE });
+      dispatch(
+        UIActions.showNotification(
+          NotiTypeEnum.success,
+          "Created question sucessfully"
+        )
+      );
     } catch (error) {
       console.error(error);
     }
@@ -28,6 +35,12 @@ export const QuestionActions = {
         payload: response.data,
       });
       dispatch({ type: TypeActions.SET_LOADING_PAGE });
+      dispatch(
+        UIActions.showNotification(
+          NotiTypeEnum.success,
+          "Updated question sucessfully"
+        )
+      );
     } catch (error) {
       console.error(error);
     }
@@ -45,6 +58,12 @@ export const QuestionActions = {
         payload: {},
       });
       dispatch({ type: TypeActions.SET_LOADING_PAGE });
+      dispatch(
+        UIActions.showNotification(
+          NotiTypeEnum.success,
+          "Deleted question sucessfully"
+        )
+      );
     } catch (error) {
       console.error(error);
     }

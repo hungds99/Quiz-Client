@@ -13,11 +13,12 @@ import jwtDecode from "jwt-decode";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { RoutePath } from "../../configs";
-import { TypeActions } from "../../constants";
-import { getStore } from "../../redux/store";
+import { NotiTypeEnum, TypeActions } from "../../constants";
+import { UIActions } from "../../redux/actions/uiActions";
 import UserServices from "../../services/userServices";
 import { Page } from "../../utils";
 
@@ -41,6 +42,7 @@ const loginSchema = yup.object().shape({
 const Login = () => {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const [loginError, setLoginError] = useState({
@@ -60,11 +62,14 @@ const Login = () => {
       localStorage.setItem("token", data.result.token);
       const decodedToken = jwtDecode(data.result.token);
       // Lấy thông tin user từ token lưu vào store
-      getStore().dispatch({
+      dispatch({
         type: TypeActions.SET_CREDENTIALS,
         payload: decodedToken.user,
       });
       history.push(RoutePath.home);
+      dispatch(
+        UIActions.showNotification(NotiTypeEnum.info, "Welcome to Quiz Online")
+      );
     } else {
       setLoginError({
         error: true,

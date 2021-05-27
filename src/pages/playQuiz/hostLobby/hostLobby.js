@@ -25,6 +25,43 @@ const useStyles = makeStyles(() => ({
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
+    padding: 10,
+  },
+  pinBox: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  pin: {
+    backgroundColor: "#ffffff",
+    textAlign: "center",
+    padding: 20,
+    marginTop: 20,
+    borderRadius: 15,
+  },
+  playerContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  playerLobby: {
+    width: "100%",
+    backgroundColor: "#CBC0CE",
+    textAlign: "center",
+    borderRadius: 20,
+    paddingTop: 20,
+  },
+  playerList: {
+    backgroundColor: "#ffffff",
+    textAlign: "center",
+    padding: 20,
+    marginTop: 30,
+    height: "400px",
+    borderRadius: 20,
+    justifyContent: "center",
+    overflow: "auto",
   },
 }));
 
@@ -43,11 +80,9 @@ const HostLobby = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (host.id) {
-      configSocket();
-      emitHostCreateRoom(host);
-    }
-  }, [host]);
+    configSocket();
+    emitHostCreateRoom({ id: id });
+  }, [id]);
 
   const handleStartGame = () => {
     history.push(RoutePath.host.started.replace(":id", host.id));
@@ -57,53 +92,23 @@ const HostLobby = () => {
     <Box className={classes.root}>
       {host ? (
         <Box paddingTop={10} overflow="hidden">
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
+            <Grid item xs={1}></Grid>
             <Grid item xs={4}>
-              <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-              >
+              <Box className={classes.pinBox}>
                 <Box bgcolor="#CF4D4D" padding={5} borderRadius={20}>
                   <p>Access Game With PIN</p>
-                  <Box
-                    bgcolor="#ffffff"
-                    textAlign="center"
-                    padding={2}
-                    marginTop={2}
-                    borderRadius={15}
-                  >
+                  <Box className={classes.pin}>
                     <h2>{host.pin}</h2>
                   </Box>
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={7}>
-              <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Box
-                  width="100%"
-                  bgcolor="#CBC0CE"
-                  textAlign="center"
-                  borderRadius={20}
-                  paddingTop={2}
-                >
+            <Grid item xs={6}>
+              <Box className={classes.playerContainer}>
+                <Box className={classes.playerLobby}>
                   <h3>Player Joinning</h3>
-                  <Box
-                    bgcolor="#ffffff"
-                    textAlign="center"
-                    padding={2}
-                    marginTop={3}
-                    height="400px"
-                    borderRadius={20}
-                    justifyContent="center"
-                    overflow="auto"
-                  >
+                  <Box className={classes.playerList}>
                     {players.map((player, index) => (
                       <Box
                         display="flex"

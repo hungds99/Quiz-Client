@@ -10,7 +10,7 @@ import TodayIcon from "@material-ui/icons/Today";
 import dayjs from "dayjs";
 import React from "react";
 import { useHistory } from "react-router";
-import { ImageLink, RoutePath } from "../../configs";
+import { RoutePath } from "../../configs";
 import AppHelper from "../../helpers";
 
 const useStyles = makeStyles((theme) => ({

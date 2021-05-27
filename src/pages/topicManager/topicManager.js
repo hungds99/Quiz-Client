@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import DeleteIcon from "@material-ui/icons/Delete";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +24,6 @@ import { NotiTypeEnum } from "../../constants";
 import { UIActions } from "../../redux/actions/uiActions";
 import UserSelectors from "../../redux/selectors/userSelectors";
 import TopicServices from "../../services/topicServices";
-
 function TopicManager() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -96,7 +94,7 @@ function TopicManager() {
 
   const handleCreateTopic = async () => {
     if (topicName.trim() !== "") {
-      let { data } = await TopicServices.create({ name: topicName });
+      let { data } = await TopicServices.create({ name: topicName.trim() });
       if (data.code === 200) {
         setTopicName("");
         fetchTopic();

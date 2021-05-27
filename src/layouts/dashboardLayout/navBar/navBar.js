@@ -12,18 +12,14 @@ import {
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import {
-  Settings as SettingsIcon,
-  User as UserIcon,
-  Users as UsersIcon,
   BookOpen as BookOpenIcon,
   Codepen as CodepenIcon,
   Menu as MenuIcon,
   PlusCircle as PlusCircleIcon,
 } from "react-feather";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { RoutePath } from "../../../configs";
-import { TypeActions } from "../../../constants";
 import AppHelper from "../../../helpers";
 import UserSelectors from "../../../redux/selectors/userSelectors";
 import QuizServices from "../../../services/quizServices";
@@ -72,7 +68,6 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const credentials = useSelector(UserSelectors.selectCredentials);
@@ -134,12 +129,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       <Box flexGrow={1} />
       <Box p={2} m={2} bgcolor="background.dark">
         <Box display="flex" justifyContent="center">
-          <Button
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
+          <Button color="primary" component="a" variant="contained">
             Help ?
           </Button>
         </Box>

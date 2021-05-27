@@ -76,6 +76,8 @@ export const QuizReducers = (state = initialState, actions) => {
         quizes: [...actions.payload.data],
         quizTotal: actions.payload.total,
       };
+    case TypeActions.RESET_QUIZ:
+      return initialState;
     default:
       return state;
   }

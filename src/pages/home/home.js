@@ -2,7 +2,7 @@ import { Box, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { ImageLink } from "../../configs";
+import { IconLink, ImageLink } from "../../configs";
 import { SET_LOADING_PAGE, SET_NO_LOADING_PAGE } from "../../constants/types";
 import TopicServices from "../../services/topicServices";
 import Topic from "./topic/topic";
@@ -35,7 +35,7 @@ function Home() {
   useEffect(() => {
     dispatch({ type: SET_LOADING_PAGE });
     fetchRecommendTopic();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (topics) {
@@ -58,35 +58,27 @@ function Home() {
                     <Grid container spacing={4}>
                       {[
                         {
-                          order: 1,
+                          icon: IconLink.one,
                           content: "Add some quizes and Create a host",
-                          color: "#ff0000",
                         },
                         {
-                          order: 2,
+                          icon: IconLink.two,
                           content: "Share your pin code with friends",
-                          color: "#1000ff",
                         },
                         {
-                          order: 3,
+                          icon: IconLink.three,
                           content: "Waiting join and start quiz",
-                          color: "#6eff00",
                         },
                         {
-                          order: 4,
+                          icon: IconLink.four,
                           content: "Top ranked player",
-                          color: "#ffa500",
                         },
                       ].map((value, index) => (
                         <Grid key={index} item xs={6}>
                           <Box>
-                            <Typography
-                              className={classes.step}
-                              variant="h1"
-                              style={{ color: value.color }}
-                            >
-                              <strong> {value.order}</strong>
-                            </Typography>
+                            <Box className={classes.step}>
+                              <img width={35} src={value.icon} alt="order" />
+                            </Box>
                             <Typography variant="h6">
                               {value.content}
                             </Typography>

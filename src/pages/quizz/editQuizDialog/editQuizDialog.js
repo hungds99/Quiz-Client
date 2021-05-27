@@ -14,14 +14,12 @@ import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import { Autocomplete } from "@material-ui/lab";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NotiTypeEnum, TypeActions } from "../../../constants";
+import { TypeActions } from "../../../constants";
 import AppHelper from "../../../helpers";
-import { UIActions } from "../../../redux/actions";
 import { QuizActions } from "../../../redux/actions/quizActions";
 import QuizSelectors from "../../../redux/selectors/quizSelectors";
 import UISelectors from "../../../redux/selectors/uiSelectors";
 import TopicServices from "../../../services/topicServices";
-
 const useStyles = makeStyles(() => ({
   thumbnail: {
     width: "100%",
@@ -83,12 +81,6 @@ function EditQuizDialog() {
       })
     );
     handleClose();
-    dispatch(
-      UIActions.showNotification(
-        NotiTypeEnum.success,
-        "Updated quiz info successfully"
-      )
-    );
   };
 
   const handleChangeThumbnail = (e) => {
@@ -97,9 +89,6 @@ function EditQuizDialog() {
       formData.append("id", quiz.id);
       formData.append("thumbnail", e.target.files[0]);
       dispatch(QuizActions.upload(formData));
-      dispatch(
-        UIActions.showNotification(NotiTypeEnum.info, "Added image thumbnail")
-      );
     }
   };
 

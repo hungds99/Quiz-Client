@@ -1,7 +1,6 @@
 import { Backdrop, Box, CircularProgress, makeStyles } from "@material-ui/core";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import Footer from "../../components/footer/footer";
 import UISelectors from "../../redux/selectors/uiSelectors";
 import TopBar from "../../components/topBar/topBar";
 import NavBar from "./navBar/navBar";

@@ -80,6 +80,7 @@ function Explore() {
   useEffect(() => {
     getQuizes();
     fetchTopics();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -89,6 +90,7 @@ function Explore() {
       topic: quizParams.topic === "all" ? "" : quizParams.topic,
     };
     getQuizes(params);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quizParams]);
 
   const handleChangeKeyword = (e) => {

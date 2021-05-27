@@ -17,12 +17,12 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Link as RouterLink, useHistory } from "react-router-dom";
 import { ImageLink, RoutePath } from "../../configs";
-import { TypeActions } from "../../constants";
+import { NotiTypeEnum, TypeActions } from "../../constants";
+import { UIActions } from "../../redux/actions/uiActions";
 import UserSelectors from "../../redux/selectors/userSelectors";
-import { getStore } from "../../redux/store";
 import ProfileDialog from "../profileDialog/profileDialog";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const TopBar = ({ className, ...rest }) => {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const [isOpenProfile, setIsOpenProfile] = useState(false);
@@ -54,11 +55,14 @@ const TopBar = ({ className, ...rest }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    getStore().dispatch({
+    dispatch({
       type: TypeActions.SET_CREDENTIALS,
       payload: {},
     });
     history.push(RoutePath.login);
+    dispatch(
+      UIActions.showNotification(NotiTypeEnum.success, "Logout successfully")
+    );
   };
 
   const handleOpenProfile = () => {

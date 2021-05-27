@@ -91,7 +91,9 @@ function SinglePlayerResult({ host, isOpen, onClose }) {
     <>
       <Dialog open={isOpen} onClose={() => onClose()}>
         {loading ? (
-          <CircularProgress />
+          <DialogContent>
+            <CircularProgress />
+          </DialogContent>
         ) : (
           <>
             <DialogTitle disableTypography>
