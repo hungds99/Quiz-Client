@@ -2,9 +2,7 @@
 
 QuizOn là một trang web cho phép người dùng đăng ký tài khoản và tạo các bài quiz, thực hiện một bài thi cá nhân hoặc là một hoster một quiz thời gian thực.
 
-🚀Đồ án dưới sự hướng dẫn:   **Th.S Lương Anh Tuấn**
-
-🛠 Nhóm sinh viên thực hiện: **Đinh Sỹ Hùng - Nguyễn Đình Việt**
+🚀Nhóm sinh viên thực hiện: **Đinh Sỹ Hùng - Nguyễn Đình Việt**
 
 
 ## Tính năng
