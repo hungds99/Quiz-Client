@@ -22,7 +22,6 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
 import RankedList from "../../../components/rankedList/rankedList";
 import StartCounter from "../../../components/startCounter/startCounter";
 import { IconLink, RoutePath } from "../../../configs";
@@ -132,8 +131,8 @@ function HostGame() {
                   className={classes.menuButton}
                   color="inherit"
                   aria-label="menu"
-                  component={Link}
-                  to={RoutePath.dashboard.library}
+                  component={"a"}
+                  href={RoutePath.home}
                 >
                   <HomeIcon />
                 </IconButton>
@@ -141,7 +140,7 @@ function HostGame() {
                   {quiz.title}
                 </Typography>
                 <Button color="inherit" startIcon={<PeopleIcon />}>
-                  {players.length} Players
+                  {players.length} Players on board
                 </Button>
               </Toolbar>
             </AppBar>

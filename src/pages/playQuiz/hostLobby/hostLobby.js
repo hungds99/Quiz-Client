@@ -65,7 +65,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const HostLobby = () => {
+function HostLobby() {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -81,7 +81,9 @@ const HostLobby = () => {
 
   useEffect(() => {
     configSocket();
-    emitHostCreateRoom({ id: id });
+    setTimeout(() => {
+      emitHostCreateRoom({ id: id });
+    }, 0);
   }, [id]);
 
   const handleStartGame = () => {
@@ -146,7 +148,7 @@ const HostLobby = () => {
       )}
     </Box>
   );
-};
+}
 
 HostLobby.propTypes = {};
 

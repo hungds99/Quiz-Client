@@ -47,7 +47,9 @@ function PlayerLobby() {
 
   useEffect(() => {
     configSocket();
-    emitPlayerJoinRoom({ id: hostId });
+    setTimeout(() => {
+      emitPlayerJoinRoom({ id: hostId });
+    }, 0);
   }, [hostId]);
 
   useEffect(() => {

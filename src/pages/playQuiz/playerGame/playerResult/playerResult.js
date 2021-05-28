@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
     padding: 20,
     marginTop: 100,
     borderRadius: 20,
-    width: 800,
+    width: 700,
   },
   question: {
     display: "flex",

@@ -70,7 +70,6 @@ const App = () => {
       <GlobalStyles />
       <Switch>
         {/* Home */}
-
         <MainAuthRoute path={RoutePath.home} component={Home} exact />
 
         {/* Explore */}
