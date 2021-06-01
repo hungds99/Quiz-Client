@@ -37,6 +37,7 @@ export const APIRouter = Object.freeze({
     getTotal: "/score/get-player-total-score",
     getPlayerAnswserResult: "/score/get-player-answer-result",
     getPlayersHostResult: "/score/get-players-total-score/:hostId",
+    getHistory: "/score/get-history-player-score",
   },
   image: {
     upload: "/image/upload",

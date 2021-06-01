@@ -16,6 +16,7 @@ import {
   Codepen as CodepenIcon,
   Menu as MenuIcon,
   PlusCircle as PlusCircleIcon,
+  Wind as WindIcon,
 } from "react-feather";
 import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
@@ -41,6 +42,11 @@ const items = [
     href: RoutePath.dashboard.host,
     icon: CodepenIcon,
     title: "Host Owner",
+  },
+  {
+    href: RoutePath.dashboard.joinHistory,
+    icon: WindIcon,
+    title: "Join History",
   },
   {
     href: RoutePath.dashboard.topic,

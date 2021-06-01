@@ -8,6 +8,7 @@ export const RoutePath = Object.freeze({
     library: "/dashboard/library",
     topic: "/dashboard/topics",
     host: "/dashboard/hosts",
+    joinHistory: "/dashboard/history",
   },
   quiz: {
     create: "/dashboard/quiz/create/:id",

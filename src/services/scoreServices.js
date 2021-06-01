@@ -19,6 +19,9 @@ const ScoreServices = {
       APIRouter.score.getPlayersHostResult.replace(":hostId", params)
     );
   },
+  getHistory: async (params) => {
+    return await AxiosNetwork.post(APIRouter.score.getHistory);
+  },
 };
 
 export default ScoreServices;

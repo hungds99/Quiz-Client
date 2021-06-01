@@ -52,7 +52,9 @@ function MultiPlayersResult({ host, isOpen, onClose }) {
         }}
       >
         {loading ? (
-          <CircularProgress />
+          <DialogContent>
+            <CircularProgress />
+          </DialogContent>
         ) : (
           <>
             <DialogTitle disableTypography>Players Result History</DialogTitle>

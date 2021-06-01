@@ -24,6 +24,7 @@ import Dashboard from "./pages/dashboard";
 import Explore from "./pages/explore/explore";
 import Home from "./pages/home";
 import HostManager from "./pages/hostManager/hostManager";
+import JoinHistory from "./pages/joinHistory/joinHistory";
 import NotFound from "./pages/notFound/notFound";
 import HostGame from "./pages/playQuiz/hostGame/hostGame";
 import HostLobby from "./pages/playQuiz/hostLobby/hostLobby";
@@ -97,6 +98,10 @@ const App = () => {
         <DashboardAuthRoute
           path={RoutePath.dashboard.host}
           component={HostManager}
+        />
+        <DashboardAuthRoute
+          path={RoutePath.dashboard.joinHistory}
+          component={JoinHistory}
         />
 
         {/* Quiz */}

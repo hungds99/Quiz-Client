@@ -51,16 +51,6 @@ function HostManager() {
   const [loading, setLoading] = useState(true);
 
   const columns = [
-    // {
-    //   field: "id",
-    //   headerName: "STT",
-    //   width: 120,
-    //   sortable: false,
-    //   renderCell: (params) => {
-    //     console.log("Params : ", params);
-    //     return params.rowIndex + 1;
-    //   },
-    // },
     {
       field: "isSolo",
       headerName: "Host Type",
