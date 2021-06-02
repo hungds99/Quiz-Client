@@ -4,7 +4,7 @@
     "Sign in": "Sign in" ,
     "Email address": "Email address",
     "Password": "Password",
-    "Do not have an account?": "Don&apos;t have an account ?",
+    "Do not have an account?": "Have no an account ?",
     "validation": {
         "required": "{{field}} is a required field"
     },

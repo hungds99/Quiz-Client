@@ -8,7 +8,7 @@ import {
 import jwtDecode from "jwt-decode";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import "./app.css";
 import {
   AuthRoute,
@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const loading = useSelector(UISelectors.selectLoading);
 
@@ -63,8 +64,11 @@ const App = () => {
         user: { id },
       } = jwtDecode(token);
       dispatch(UserActions.getUserInfo(id));
+    } else {
+      //   window.location.href = RoutePath.login;
+      history.push(RoutePath.login);
     }
-  }, [dispatch]);
+  }, [dispatch, history]);
 
   return (
     <ThemeProvider theme={Theme}>
