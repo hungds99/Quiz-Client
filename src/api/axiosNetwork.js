@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "../auth";
+import { isAuthenticated } from "../auth";
 
 const AxiosNetwork = axios.create({
   baseURL: `${process.env.REACT_APP_API_URI}`,
@@ -8,8 +8,8 @@ const AxiosNetwork = axios.create({
 // Khởi tạo interceptors khi request
 AxiosNetwork.interceptors.request.use(
   (config) => {
-    if (getToken()) {
-      config.headers["Authorization"] = "Bearer " + getToken();
+    if (isAuthenticated()) {
+      config.headers["Authorization"] = "Bearer " + isAuthenticated();
     }
     config.headers["Content-Type"] = "application/json";
     return config;

@@ -1,5 +1,5 @@
 import io from "socket.io-client";
-import { getToken } from "../auth/authChecker";
+import { isAuthenticated } from "../auth/authChecker";
 import {
   onResponseAllPlayerScore,
   onResponseGameStartCounter,
@@ -22,7 +22,7 @@ import {
 
 const endpoint = process.env.REACT_APP_SOCKET_ENDPOINT;
 
-const token = getToken();
+const token = isAuthenticated(); 
 
 let socket = null;
 

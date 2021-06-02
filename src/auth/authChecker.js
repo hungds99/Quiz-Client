@@ -1,17 +1,13 @@
+import jwtDecode from "jwt-decode";
+import { RoutePath } from "../configs";
+
 export const isAuthenticated = () => {
   let token = localStorage.getItem("token");
-  if (token) {
+  let decodedToken = jwtDecode(token);
+  let currentDate = new Date();
+  if (token && decodedToken.exp * 1000 > currentDate.getTime()) {
     return token;
+  } else {
+    window.location.href = RoutePath.login;
   }
-  return false;
-};
-
-export const getToken = () => {
-  let token = localStorage.getItem("token");
-
-  if (token) {
-    return token;
-  }
-
-  return false;
 };
