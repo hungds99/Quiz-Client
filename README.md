@@ -1,43 +1,43 @@
-# Hệ thống thi trắc nghiệm trực tuyến Realtime (QuizOn)
+# Quiz Online Real-time (QuizOn)
 
-QuizOn là một trang web cho phép người dùng đăng ký tài khoản và tạo các bài quiz, thực hiện một bài thi cá nhân hoặc là một hoster một quiz thời gian thực.
+QuizOn is a website that allows users to sign up for an account and create quizzes, take a personal quiz or as a hoster a real-time quiz.
 
-🚀Nhóm sinh viên thực hiện: **Đinh Sỹ Hùng - Nguyễn Đình Việt**
+🚀Students: **Đinh Sỹ Hùng - Nguyễn Đình Việt**
 
 
-## Tính năng
-- Đăng ký tài khoản - Đăng nhập
-- Cập nhật thông tin cá nhân
-- Hiển thị danh sách - tìm kiếm các bài quiz
-- Hệ thống dashboard quản lý cá nhân
-- Thêm sửa xóa một bộ câu hỏi
-- Thực hiện thi một bài thi cá nhân
-- Thực hiện tạo một bài thi thời gian thực
-- Tham gia một bài thi thời  gian thực với mã PIN
-- Lịch sử tạo host và thi
+## Feature
+- Register and Login with account
+- Update profile
+- Show list - search quizzes
+- Personal management dashboard system
+- CRUD a quiz - CRUD list questions in quiz
+- Take an individual
+- Make a real-time
+- Take a real-time with a PIN
+- Show history and results
 
-## Công nghệ sử dụng
+## Tech
 - Front-End: ReactJs + Redux + Material UI
 - Back-End:  NodeJs + ExpressJs
 - Database:  MongoDB
 - Realtime:  SocketIO
-## Cài đặt
-**🔨 Chạy Front-End:**
+## Set up
+**🔨 Run Front-End:**
 * `git clone https://github.com/hungds99/Quiz-Client`
 * `cd Quiz-Client`
-* Thay đổi cấu hình ở file .env 
+* Change config file .env
 * `npm install`
 * `npm start`
-* Chương trình chạy theo host mặc định: http://localhost:3000/
+* Open http://localhost:3000/
 
-**🔨 Chạy Back-End:**
+**🔨 Run Back-End:**
 * `git clone https://github.com/hungds99/Quiz-Server`
 * `cd Quiz-Server`
-* Thay đổi cấu hình ở file .env 
+* Change config file .env
 * `npm install`
 * `npm run dev`
 
-## Kết quả thực hiện
+## Result
 ![alt text](https://res.cloudinary.com/dzvqmtroy/image/upload/v1622195098/quiz-app/home_tnctpv.jpg)
 
 ![alt text](https://res.cloudinary.com/dzvqmtroy/image/upload/v1622195187/quiz-app/15.Chi_ti%E1%BA%BFt_b%C3%A0i_quiz_wspxsx.png)
