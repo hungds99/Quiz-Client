@@ -37,7 +37,7 @@ QuizOn is a website that allows users to sign up for an account and create quizz
 * `npm install`
 * `npm run dev`
 
-## Result
+## Screenshot
 ![alt text](https://res.cloudinary.com/dzvqmtroy/image/upload/v1622195098/quiz-app/home_tnctpv.jpg)
 
 ![alt text](https://res.cloudinary.com/dzvqmtroy/image/upload/v1622195187/quiz-app/15.Chi_ti%E1%BA%BFt_b%C3%A0i_quiz_wspxsx.png)
