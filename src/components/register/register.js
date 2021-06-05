@@ -1,21 +1,25 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Box,
   Button,
-  Checkbox,
+  CircularProgress,
   Container,
+  FormHelperText,
   Link,
   makeStyles,
   TextField,
   Typography,
 } from "@material-ui/core";
-import React from "react";
-import { Link as RouterLink, useHistory } from "react-router-dom";
-import { RoutePath } from "../../configs";
-import { Page } from "../../utils";
-import * as yup from "yup";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch } from "react-redux";
+import { Link as RouterLink, useHistory } from "react-router-dom";
+import * as yup from "yup";
+import { RoutePath } from "../../configs";
+import { NotiTypeEnum } from "../../constants";
+import { UIActions } from "../../redux/actions/uiActions";
 import UserServices from "../../services/userServices";
+import { Page } from "../../utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +27,16 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3),
+  },
+  wrapper: {
+    position: "relative",
+  },
+  buttonProgress: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginTop: -12,
+    marginLeft: -12,
   },
 }));
 
@@ -43,6 +57,13 @@ const registerSchema = yup.object().shape({
 const Register = () => {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
+  const [registerError, setRegisterError] = useState({
+    error: false,
+    message: "",
+  });
 
   const {
     register,
@@ -51,10 +72,26 @@ const Register = () => {
   } = useForm({ resolver: yupResolver(registerSchema) });
 
   const onSubmit = async (registerParams) => {
+    setLoading(true);
     let { data } = await UserServices.register(registerParams);
     if (data.code === 200) {
       history.push(RoutePath.login);
+      dispatch(
+        UIActions.showNotification(NotiTypeEnum.info, "Register successfully")
+      );
+    } else {
+      setRegisterError({
+        error: true,
+        message: data.message,
+      });
+      dispatch(
+        UIActions.showNotification(
+          NotiTypeEnum.error,
+          "Errors, please try again."
+        )
+      );
     }
+    setLoading(false);
   };
 
   return (
@@ -107,31 +144,28 @@ const Register = () => {
               error={errors && errors.password ? true : false}
               helperText={errors && errors.password && errors.password.message}
             />
-            <Box alignItems="center" display="flex" ml={-1}>
-              <Checkbox name="policy" />
-              <Typography color="textSecondary" variant="body1">
-                I have read the{" "}
-                <Link
-                  color="primary"
-                  component={RouterLink}
-                  to="#"
-                  underline="always"
-                  variant="h6"
-                >
-                  Terms and Conditions
-                </Link>
-              </Typography>
+            <Box display="flex" justifyContent="center">
+              <FormHelperText error={registerError.error}>
+                {registerError.message}
+              </FormHelperText>
             </Box>
-            <Box my={2}>
+            <Box my={2} className={classes.wrapper}>
               <Button
                 color="primary"
                 fullWidth
                 size="large"
                 type="submit"
                 variant="contained"
+                disabled={loading}
               >
-                Sign up now
+                Sign up
               </Button>
+              {loading && (
+                <CircularProgress
+                  size={24}
+                  className={classes.buttonProgress}
+                />
+              )}
             </Box>
             <Typography color="textSecondary" variant="body1">
               Have an account?{" "}

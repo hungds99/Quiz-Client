@@ -2,6 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   FormHelperText,
   Link,
@@ -29,6 +30,16 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3),
   },
+  wrapper: {
+    position: "relative",
+  },
+  buttonProgress: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginTop: -12,
+    marginLeft: -12,
+  },
 }));
 
 const loginSchema = yup.object().shape({
@@ -44,6 +55,7 @@ const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(false);
 
   const [loginError, setLoginError] = useState({
     error: false,
@@ -57,6 +69,7 @@ const Login = () => {
   } = useForm({ resolver: yupResolver(loginSchema) });
 
   const onSubmit = async (loginParams) => {
+    setLoading(true);
     let { data } = await UserServices.login(loginParams);
     if (data.code === 200) {
       localStorage.setItem("token", data.result.token);
@@ -66,6 +79,7 @@ const Login = () => {
         type: TypeActions.SET_CREDENTIALS,
         payload: decodedToken.user,
       });
+
       history.push(RoutePath.home);
       dispatch(
         UIActions.showNotification(NotiTypeEnum.info, "Welcome to Quiz Online")
@@ -75,7 +89,14 @@ const Login = () => {
         error: true,
         message: data.message,
       });
+      dispatch(
+        UIActions.showNotification(
+          NotiTypeEnum.error,
+          "Errors, please try again."
+        )
+      );
     }
+    setLoading(false);
   };
 
   return (
@@ -124,16 +145,23 @@ const Login = () => {
                 {loginError.message}
               </FormHelperText>
             </Box>
-            <Box my={2}>
+            <Box my={2} className={classes.wrapper}>
               <Button
                 color="primary"
                 fullWidth
                 size="large"
                 type="submit"
                 variant="contained"
+                disabled={loading}
               >
                 {t("Sign in")}
               </Button>
+              {loading && (
+                <CircularProgress
+                  size={24}
+                  className={classes.buttonProgress}
+                />
+              )}
             </Box>
             <Typography color="textSecondary" variant="body1">
               {t("Do not have an account?")}
