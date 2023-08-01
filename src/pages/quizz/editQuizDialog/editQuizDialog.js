@@ -77,7 +77,7 @@ function EditQuizDialog() {
     await dispatch(
       QuizActions.update({
         ...quizInfo,
-        topic: quizInfo.topic && quizInfo.topic.id,
+        topic:  quizInfo.topic?.id,
       })
     );
     handleClose();
@@ -136,7 +136,7 @@ function EditQuizDialog() {
             <Box marginBottom={2}>
               <Typography>Title: </Typography>
               <TextField
-                value={quizInfo && quizInfo.title}
+                value={ quizInfo?.title}
                 onChange={handleChangeTitle}
                 fullWidth
               />
@@ -148,7 +148,7 @@ function EditQuizDialog() {
               <Typography>Topic: </Typography>
               <Autocomplete
                 options={topics}
-                value={quizInfo && quizInfo.topic ? quizInfo.topic : ""}
+                value={ quizInfo?.topic ? quizInfo.topic : ""}
                 onChange={handleChangeTopic}
                 getOptionSelected={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option.name ? option.name : "")}
