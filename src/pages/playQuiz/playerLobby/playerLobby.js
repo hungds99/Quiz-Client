@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
   },
   counter: {
-    backgroundColor: `rgba(255, 255, 255, 0.5)`,
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
     width: '100%',
     textAlign: 'center',
     padding: '50px',

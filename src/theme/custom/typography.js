@@ -32,7 +32,7 @@ const typography = Object.freeze({
   overline: {
     fontWeight: 500,
   },
-  fontFamily: `"Roboto Slab", serif`,
+  fontFamily: '"Roboto Slab", serif',
 });
 
 export default typography;
