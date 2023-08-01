@@ -139,7 +139,7 @@ function TopBar() {
               onClick={handlePublic}
               color="primary"
               fullWidth
-              autoFocus
+              
               size="small"
             >
               Accept

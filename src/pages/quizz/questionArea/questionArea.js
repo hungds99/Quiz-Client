@@ -378,7 +378,7 @@ function QuestionArea() {
             onClick={handleDelete}
             fullWidth
             color="secondary"
-            autoFocus
+            
             size="small"
           >
             Accept
