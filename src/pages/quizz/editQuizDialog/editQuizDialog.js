@@ -162,7 +162,7 @@ function EditQuizDialog() {
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button color="primary" onClick={handleSubmitUpdate} autoFocus>
+        <Button color="primary" onClick={handleSubmitUpdate} >
           Save
         </Button>
       </DialogActions>
