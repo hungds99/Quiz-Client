@@ -196,8 +196,8 @@ function QuizDetail() {
                 </Box>
               </Grid>
               <Grid item xs={8}>
-                {questions &&
-                  questions.map((question, index) => (
+                {
+                  questions?.map((question, index) => (
                     <Paper className={classes.paper} key={index}>
                       <Grid container>
                         <Grid item xs={12} className={classes.questionHeader}>

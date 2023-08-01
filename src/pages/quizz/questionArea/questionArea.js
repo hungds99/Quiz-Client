@@ -235,7 +235,7 @@ function QuestionArea() {
                   value={questionData.question}
                   name="question"
                   onChange={handleChangeQuestion}
-                  error={errors && errors.question ? true : false}
+                  error={ errors?.question ? true : false}
                 />
               </Grid>
               <Grid item xs={2}>
@@ -305,8 +305,8 @@ function QuestionArea() {
                       value={answer.answer}
                       onChange={(e) => handleChangeAnswer(index, e)}
                       error={
-                        errors &&
-                        errors.answers &&
+                        
+                        errors?.answers &&
                         errors.answers[index] &&
                         errors.answers[index]
                           ? true
